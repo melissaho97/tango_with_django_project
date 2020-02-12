@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+{% load staticfiles %} <!-- New line -->
+
 <html>
     <head>
         <title> Rango </title>
@@ -22,6 +25,7 @@
                 About
             </a>
             <br/>
+            <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" /> <!-- New line -->
         </div>
     </body>
 </html>
