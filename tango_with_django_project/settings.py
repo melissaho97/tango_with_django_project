@@ -16,6 +16,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# d files that don’t change and are essential to your application
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -67,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media', # Check/add this line!
             ],
         },
     },
@@ -122,3 +125,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR, ]   # Chapter 4.2
+
+# Chapter 4.3
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'
