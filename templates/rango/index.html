@@ -8,23 +8,14 @@
     </head>
 
     <body>
-        <h1>
-            Rango says...
-        </h1>
-
+        <h1> Rango says... </h1>
         <div>
             hey there partner! <br/>
             <!-- a Django template variable -->
-            <strong>
-                {{ boldmessage }}
-            </strong>
-            <br/>
+            <strong> {{ boldmessage }} </strong><br/>
         </div>
         <div>
-            <a href="/rango/about/">
-                About
-            </a>
-            <br/>
+            <a href="/rango/about/"> About </a><br/>
             <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" /> <!-- New line -->
         </div>
     </body>

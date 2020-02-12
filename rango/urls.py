@@ -13,12 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+# from django.contrib import admin
 from django.urls import path
-# make the app more modular; point to the app to handle any specific Rango app requests
-from django.urls import include
-#  allow a user to access the view file
-from rango import views
+# from django.urls import include # make the app more modular; point to the app to handle any specific Rango app requests
+from rango import views         #  allow a user to access the view file
 
 app_name = 'rango'
 

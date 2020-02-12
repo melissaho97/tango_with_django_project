@@ -8,23 +8,16 @@
     </head>
 
     <body>
-        <h1>
-            Rango says...
-        </h1>
-
+        <h1> Rango says... </h1>
         <div>
-            hey there partner! <br/>
+            here is the about page. <br/>
             <!-- a Django template variable -->
-            <strong>
-                This tutorial has been put together by Melissa Ho.
-            </strong>
-            <br/>
+            This tutorial has been put together by Melissa Ho. <br/>
         </div>
         <div>
-            <a href="/rango/"> Home </a> <!-- Line Modified to link back to Index.html -->
-            <br/>
-            <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />
-            <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat."/> <!-- New Line -->
+            <a href="/rango/"> Index </a> <br/> <!-- Line Modified to link back to Index.html -->
+            <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" /> <br/>
+            <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat"/> <br/> <!-- New Line -->
         </div>
     </body>
 </html>

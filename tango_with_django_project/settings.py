@@ -16,8 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
-# d files that don’t change and are essential to your application
-MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')         # files that don’t change and are essential to your application
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -29,7 +28,6 @@ SECRET_KEY = '*$_uj2hx9+r4$*d4!^kgc8+!kr)b)e+3ezl2+q-6=+2(-myf^8'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
