@@ -20,7 +20,7 @@ from django.urls import include
 #  allow a user to access the view file
 from rango import views
 
-app = 'rango'
+app_name = 'rango'
 
 urlpatterns = [
     path('', views.index, name='index'),
