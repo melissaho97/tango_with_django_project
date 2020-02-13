@@ -7,6 +7,10 @@ class Category(models.Model):
     # Primary Key
     name = models.CharField(max_length=128, unique=True)
 
+    # Change Categorys into Categories
+    class Meta:
+        verbose_name_plural = 'Categories'
+
     # without the folowing, it will show as <Category: Category object> if you were to print() the object
     def __str__(self):
         return self.name
