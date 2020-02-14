@@ -16,7 +16,7 @@ class Category(models.Model):
 
     # Change Categorys into Categories
     class Meta:
-        verbose_name_plural = 'categories'
+        verbose_name_plural = 'Categories'
 
     # without the folowing, it will show as <Category: Category object> if you were to print() the object
     def __str__(self):
