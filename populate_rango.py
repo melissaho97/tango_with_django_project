@@ -14,7 +14,7 @@ def populate():
 
     python_pages = [
         {'title': 'Official Python Tutorial',
-        'url': 'http://docs.python.org/3/tutorial',
+        'url': 'http://docs.python.org/3/tutorial/',
         'views': 7 },
         {'title': 'How to Think like a Computer Scientist',
         'url': 'http://www.greenteapress.com/thinkpython/',
@@ -41,7 +41,7 @@ def populate():
         'url': 'http://bottlepy.org/docs/dev/',
         'views': 3},
         {'title': 'Flask',
-        'url': 'http://fask.pocoo.org',
+        'url': 'http://flask.pocoo.org',
         'views': 5}
     ]
 
