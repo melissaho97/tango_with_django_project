@@ -4,8 +4,9 @@ from django.template.defaultfilters import slugify
 # Create your models here.
 # Inherit from Model base class
 class Category(models.Model):
+    NAME_MAX_LENGTH = 128
     # Primary Key
-    name = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
