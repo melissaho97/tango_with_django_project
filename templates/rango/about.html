@@ -1,23 +1,20 @@
-<!DOCTYPE html>
-
+{% extends 'rango/base.html' %}
 {% load staticfiles %}
 
-<html>
-    <head>
-        <title> Rango </title>
-    </head>
+{% block title_block %}
+    About Rango
+{% endblock %}
 
-    <body>
-        <h1> Rango says... </h1>
-        <div>
-            here is the about page. <br/>
-            <!-- a Django template variable -->
-            This tutorial has been put together by Melissa Ho. <br/>
-        </div>
-        <div>
-            <a href="/rango/"> Index </a> <br/> <!-- Line Modified to link back to Index.html -->
-            <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" /> <br/>
-            <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat." /> <!-- New Line -->
-        </div>
-    </body>
-</html>
+{% block body_block %}
+    <h1> Rango says... </h1>
+    <div>
+        here is the about page. <br />
+        <!-- a Django template variable -->
+        This tutorial has been put together by Melissa Ho. <br />
+    </div>
+    <div>
+        <a href="/rango/"> Index </a> <br/> <!-- Line Modified to link back to Index.html -->
+        <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" /> <br/>
+        <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat." /> <!-- New Line -->
+    </div>
+{% endblock %}
