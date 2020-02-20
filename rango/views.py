@@ -17,26 +17,27 @@ def index(request):
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
-    # Obtain our Response object early so we can add cookie information.
-    response = render(request, 'rango/index.html', context=context_dict)
 
     # Call the helper function to handle the cookies
-    visitor_cookie_handler(request, response)
+    visitor_cookie_handler(request)
+    # context_dict['visits'] = request.session['visits']
 
+    # Obtain our Response object early so we can add cookie information.
+    response = render(request, 'rango/index.html', context=context_dict)
     # request.session.set_test_cookie()
     # return render(request, 'rango/index.html', context=context_dict)
     return response
 
 def about(request):
-    # print(request.method)
-    # print(request.user)
-    # context_dict = {}
-    # visitor_cookie_handler(request)
-    # context_dict['visits'] = request.session['visits']
+    print(request.method)
+    print(request.user)
+    context_dict = {}
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
     # if request.session.test_cookie_worked():
     #     print("TEST COOKIE WORKED!")
     #     request.session.delete_test_cookie()
-    return render(request, 'rango/about.html')
+    return render(request, 'rango/about.html', context=context_dict)
 
 def show_category(request, category_name_slug):
     context_dict = {}
@@ -161,7 +162,7 @@ def get_server_side_cookie(request, cookie, default_val=None):
 def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request, 'visits', '1'))
     last_visit_cookie = get_server_side_cookie(request,'last_visit', str(datetime.now()))
-    last_visit_time = datetime.strptime(last_visit_cookie[:-7],'%Y-%m-%d %H:%M:%S')
+    last_visit_time = datetime.strptime(last_visit_cookie[:-7], '%Y-%m-%d %H:%M:%S')
     # If it's been more than a day since the last visit...
     if (datetime.now() - last_visit_time).days > 0:
         visits = visits + 1
