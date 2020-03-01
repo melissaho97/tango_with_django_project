@@ -3,8 +3,13 @@ import requests
 import urllib, urllib3
 
 def main():
-    query = input('Please enter your search: ')
-    results = run_query(query)
+    search_terms = input('Please enter your search: ')
+    results = run_query(search_terms)
+
+    for result in results:
+        print(result['title'])
+        print(result['link'])
+        print(result['summary'])
 
 # Add your Microsoft Account Key to a file called bing.key
 def read_bing_key():
@@ -40,10 +45,11 @@ def run_query(search_terms):
     http://bit.ly/twd-bing-api
     """
     bing_key = read_bing_key()
-    search_url = 'https://rangobingsearchengine.cognitiveservices.azure.com/bing/v7.0'
-    # search_url = 'https://api.cognitive.microsoft.com/bing/v7.0/search'
+    # search_url = 'https://rangobingsearchengine.cognitiveservices.azure.com/bing/v7.0'
+    search_url = 'https://api.cognitive.microsoft.com/bing/v7.0/search'
     headers = {'Ocp-Apim-Subscription-Key': bing_key}
-    params = {'q': search_terms, 'textDecorations': True, 'textFormat':' HTML'}
+    # params = {'q': search_terms, 'textDecorations': True, 'textFormat':' HTML'}
+    params = urllib.parse.urlencode({'q': search_terms})
 
     # Issue the request, given the details above.
     response = requests.get(search_url, headers=headers, params=params)

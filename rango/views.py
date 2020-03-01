@@ -178,11 +178,13 @@ def visitor_cookie_handler(request):
 # Chapter 13
 def search(request):
     result_list = []
+    query = ''
     if request.method == 'POST':
-        # query = request.POST['query'].strip()
-        query = 'tango with django'
-        query = query.strip()
+        query = request.POST['query'].strip()
         if query:
             # Run our Bing function to get the results list!
             result_list = run_query(query)
-    return render(request, 'rango/search.html', {'result_list': result_list})
+    else:
+        query = 'django'
+        result_list = run_query(query)
+    return render(request, 'rango/search.html', {'result_list': result_list, 'last_query' : query})

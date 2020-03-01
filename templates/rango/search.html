@@ -16,7 +16,11 @@
         <form class="form-inline" id="user-form" method="post" action="{% url 'rango:search' %}">
             {% csrf_token %}
             <div class="form-group">
-                <input class="form-control" type="text" size="50" name="query" id="query" />
+                <!-- {% if lastquery %} -->
+                <input class="form-control" type="text" size="50" value= "{{ lastquery }}" name="query" id="query" />
+                <!-- {% else %}
+                <input class="form-control" type="text" size="50" placeholder= "Search Bing" name="query" id="query" />
+                {% endif %} -->
             </div>
 
             <button class="btn btn-primary" type="submit" name="submit">Search</button>
