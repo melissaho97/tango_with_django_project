@@ -307,3 +307,9 @@ class ProfileView(View):
             print(form.errors)
             context_dict = {'user_profile': user_profile,'selected_user': user,'form': form}
         return render(request, 'rango/profile.html', context_dict)
+
+class ListProfilesView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        profiles = UserProfile.objects.all()
+        return render(request,'rango/list_profiles.html',{'userprofile_list': profiles})
