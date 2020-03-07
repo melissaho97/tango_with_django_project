@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.urls import path
 from rango import views         #  allow a user to access the view file
-from rango.views import AboutView, AddCategoryView, ProfileView, ListProfilesView
+from rango.views import AboutView, AddCategoryView, ProfileView, ListProfilesView, LikeCategoryView, CategorySuggestionView
 
 app_name = 'rango'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    #Updated path that point to the new about class-based view.
+    # Updated path that point to the new about class-based view.
     path('about/', views.AboutView.as_view(), name='about'),
     path('category/<slug:category_name_slug>/', views.show_category, name='show_category'),
     # path('add_category/', views.add_category, name='add_category'),
@@ -36,4 +36,6 @@ urlpatterns = [
     path('add_category/', views.AddCategoryView.as_view(), name='add_category'),
     path('profile/<username>/', views.ProfileView.as_view(), name='profile'),
     path('profiles/', views.ListProfilesView.as_view(), name='list_profiles'),
+    path('like_category/', views.LikeCategoryView.as_view(), name='like_category'),
+    path('suggest/', views.CategorySuggestionView.as_view(), name='suggest'),
 ]
