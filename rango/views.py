@@ -2,17 +2,47 @@
 #  import the HttpResponse object from the django.http module
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from rango.models import Category, Page
-from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from datetime import datetime
-from rango.bing_search import run_query
 from django.views import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
-from rango.models import UserProfile
+from rango.models import Category, Page, UserProfile
+from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from rango.bing_search import run_query
+from datetime import datetime
+
+"""
+Content
+1.  IndexView
+2.  AboutView
+3.  ShowCategoryView
+4.  AddCategoryView
+5.  AddPageView
+6.  RestrictedView
+7.  GotoView
+8.  RegisterProfileView
+9.  ProfileView
+10. ListProfilesView
+11. LikeCategoryView
+12. CategorySuggestionView
+13. SearchAddPageView
+"""
+
+class IndexView(View):
+    def get(self, request):
+        category_list = Category.objects.order_by('-likes')[:5]
+        page_list = Page.objects.order_by('-views')[:5]
+
+        context_dict = {}
+        context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+        context_dict['categories'] = category_list
+        context_dict['pages'] = page_list
+
+        visitor_cookie_handler(request)
+        response = render(request, 'rango/index.html', context=context_dict)
+        return response
 
 class AboutView(View):
     def get(self, request):
@@ -20,6 +50,51 @@ class AboutView(View):
         visitor_cookie_handler(request)
         context_dict['visits'] = request.session['visits']
         return render(request,'rango/about.html',context_dict)
+
+class ShowCategoryView(View):
+    def create_context_dict(self, category_name_slug):
+        context_dict = {}
+        try:
+            category = Category.objects.get(slug=category_name_slug)
+            pages = Page.objects.filter(category=category).order_by('-views')
+
+            context_dict['pages'] = pages
+            context_dict['category'] = category
+        except Category.DoesNotExist:
+            context_dict['pages'] = None
+            context_dict['category'] = None
+        return context_dict
+
+    def get(self, request, category_name_slug):
+        context_dict = self.create_context_dict(category_name_slug)
+        return render(request, 'rango/category.html', context_dict)
+
+    @method_decorator(login_required)
+    def post(self, request, category_name_slug):
+        context_dict = self.create_context_dict(category_name_slug)
+        query = request.POST['query'].strip()
+        if query:
+            context_dict['result_list'] = run_query(query)
+            context_dict['query'] = query
+
+        return render(request, 'rango/category.html', context_dict)
+
+class AddCategoryView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        form = CategoryForm()
+        return render(request, 'rango/add_category.html', {'form': form})
+
+    @method_decorator(login_required)
+    def post(self, request):
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(reverse('rango:index'))
+        else:
+            print(form.errors)
+
+        return render(request, 'rango/add_category.html', {'form': form})
 
 class ProfileView(View):
     def get_user_details(self, username):
@@ -62,18 +137,7 @@ class ListProfilesView(View):
         print(profiles)
         return render(request,'rango/list_profiles.html',{'user_profile_list': profiles})
 
-def index(request):
-    category_list = Category.objects.order_by('-likes')[:5]
-    page_list = Page.objects.order_by('-views')[:5]
 
-    context_dict = {}
-    context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
-    context_dict['categories'] = category_list
-    context_dict['pages'] = page_list
-
-    visitor_cookie_handler(request)
-    response = render(request, 'rango/index.html', context=context_dict)
-    return response
 
 def about(request):
     print(request.method)
@@ -273,6 +337,18 @@ def register_profile(request):
     context_dict = {'form': form}
     return render(request, 'rango/profile_registration.html', context_dict)
 
+# Chapter 17: page 307
+def get_category_list(max_results=0, starts_with=''):
+    category_list = []
+
+    if starts_with:
+        category_list = Category.objects.filter(name__istartswith=starts_with)
+
+    if max_results > 0:
+        if len(category_list) > max_results:
+            category_list = category_list[:max_results]
+    return category_list
+
 class AddCategoryView(View):
     @method_decorator(login_required)
     def get(self, request):
@@ -288,6 +364,46 @@ class AddCategoryView(View):
         else:
             print(form.errors)
         return render(request, 'rango/add_category.html', {'form': form})
+
+class AddPageView(View):
+    @method_decorator(login_required)
+    def get_category_name(self, category_name_slug):
+        try:
+            category = Category.objects.get(slug=category_name_slug)
+        except Category.DoesNotExist:
+            category = None
+        return category
+
+    @method_decorator(login_required)
+    def get(self, request, category_name_slug):
+        form = PageForm()
+        category = self.get_category_name(category_name_slug)
+
+        if category is None:
+            return redirect(reverse('rango:index'))
+        context_dict = {'form':form, 'category': category}
+        return render(request, 'rango/add_page.html', context_dict)
+
+    @method_decorator(login_required)
+    def post():
+        form = PageForm(request.POST)
+        category = self.get_category_name(category_name_slug)
+
+        if category is None:
+            redirect(reverse('rango:index'))
+
+        if form.is_valid():
+            page = form.save(commit=False)
+            page.category = category
+            page.views = 0
+            page.save()
+
+            return redirect(reverse('rango:show_category', kwargs={'category_name_slug': category_name_slug}))
+        else:
+            print(form.errors)
+
+        context_dict = {'form': form, 'category': category}
+        return render(request, 'rango/add_page.html', context=context_dict)
 
 # Chapter 17: page 300
 class LikeCategoryView(View):
@@ -307,17 +423,6 @@ class LikeCategoryView(View):
 
         return HttpResponse(category.likes)
 
-# Chapter 17: page 307
-def get_category_list(max_results=0, starts_with=''):
-    category_list = []
-
-    if starts_with:
-        category_list = Category.objects.filter(name__istartswith=starts_with)
-
-    if max_results > 0:
-        if len(category_list) > max_results:
-            category_list = category_list[:max_results]
-    return category_list
 
 # Chapter 17: page 308
 class CategorySuggestionView(View):

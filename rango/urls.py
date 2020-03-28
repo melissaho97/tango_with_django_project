@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 from rango import views         #  allow a user to access the view file
-from rango.views import AboutView, AddCategoryView, ProfileView, ListProfilesView, LikeCategoryView, CategorySuggestionView
+from rango.views import AboutView, AddCategoryView, ProfileView, ListProfilesView, LikeCategoryView, CategorySuggestionView,SearchAddPageView
 
 app_name = 'rango'
 
@@ -38,4 +38,5 @@ urlpatterns = [
     path('profiles/', views.ListProfilesView.as_view(), name='list_profiles'),
     path('like_category/', views.LikeCategoryView.as_view(), name='like_category'),
     path('suggest/', views.CategorySuggestionView.as_view(), name='suggest'),
+    path('search_add_page/', views.SearchAddPageView.as_view(), name='suggest'),
 ]
