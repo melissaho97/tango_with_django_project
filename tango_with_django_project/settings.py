@@ -29,7 +29,7 @@ with open('bing.key') as f:
 # SECRET_KEY = '*$_uj2hx9+r4$*d4!^kgc8+!kr)b)e+3ezl2+q-6=+2(-myf^8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['melissaho97.pythonanywhere.com']
 
