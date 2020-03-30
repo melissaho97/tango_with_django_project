@@ -6,26 +6,32 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1> Rango says... </h1>
+    <div class="jumbotron p-4">
+        <div class="container">
+            <h1 class="jumbotron-heading">Rango says...</h1>
+        </div>
+    </div>
     <div>
         here is the about page. <br />
         <!-- a Django template variable -->
         This tutorial has been put together by Melissa Ho. <br />
         <p>Visits: {{ visits }}</p>
     </div>
-    <div>
-        <a href="/rango/"> Index </a> <br/> <!-- Line Modified to link back to Index.html -->
-        <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" /> <br/>
-        <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat." /> <!-- New Line -->
-    </div>
-    <br />
+
     <button class="btn btn-primary"
         onclick="alert('You clicked the button using inline JavaScript.');">
         Click me - I run on vanilla JavaScript!
     </button>
+
     <button class="btn btn-primary" id="about-btn">
         Click me - I'm using JQuery!
     </button>
+
     <p>This is some text for the JQuery example.</p>
+
     <div id="msg">Hello! I'm a further example for JQuery testing.</div>
+
+    <br />
+    <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" /> <br/>
+    <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat." />
 {% endblock %}

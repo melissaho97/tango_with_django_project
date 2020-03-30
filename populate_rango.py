@@ -45,10 +45,18 @@ def populate():
         'views': 5}
     ]
 
+    no_pages = []
+
     cats = {
         'Python': {'pages': python_pages, 'views': 128, 'likes': 64},
         'Django': {'pages': django_pages, 'views': 64, 'likes': 32},
-        'Other Frameworks': {'pages': other_pages, 'views': 32, 'likes': 16}
+        'Other Frameworks': {'pages': other_pages, 'views': 32, 'likes': 16},
+        'Pascal': {'pages': no_pages, 'views': 0, 'likes': 0},
+        'Perl': {'pages': no_pages, 'views': 0, 'likes': 0},
+        'PHP': {'pages': no_pages, 'views': 0, 'likes': 0},
+        'Prolog': {'pages': no_pages, 'views': 0, 'likes': 0},
+        'PostScript': {'pages': no_pages, 'views': 0, 'likes': 0},
+        'Programming': {'pages': no_pages, 'views': 0, 'likes': 0},
     }
 
     # If you want to add more categories or pages,

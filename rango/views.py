@@ -1,5 +1,3 @@
-
-#  import the HttpResponse object from the django.http module
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
@@ -12,6 +10,7 @@ from rango.models import Category, Page, UserProfile
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from rango.bing_search import run_query
 from datetime import datetime
+from django.utils import timezone
 
 """
 Content
@@ -153,6 +152,7 @@ class GotoView(View):
             return redirect(reverse('rango:index'))
 
         selected_page.views = selected_page.views + 1
+        selected_page.last_visit = timezone.now()
         selected_page.save()
 
         return redirect(selected_page.url)
@@ -172,6 +172,7 @@ class RegisterProfileView(View):
             user_profile = form.save(commit=False)
             user_profile.user = request.user
             user_profile.save()
+
             return redirect(reverse('rango:index'))
         else:
             print(form.errors)

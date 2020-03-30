@@ -61,16 +61,13 @@
                 </nav>
 
                 <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">
-                    <div class="container">
-                        {% block body_block %}
-                        {% endblock %}
-                        <br />
-                        <!-- FOOTER -->
-                        <footer>
-                            <p class="float-right"><a href="#">Back to top</a></p>
-                            <span>&copy; 2020 Tango With Django 2 &middot;<a href="#">Privacy</a>&middot;<a href="#">Terms</a></span>
-                        </footer>
-                    </div>
+                    {% block body_block %}{% endblock %}
+                    <br />
+                    <!-- FOOTER -->
+                    <footer>
+                        <p class="float-right"><a href="#">Back to top</a></p>
+                        <span>&copy; 2020 Tango With Django 2 &middot;<a href="#">Privacy</a>&middot;<a href="#">Terms</a></span>
+                    </footer>
                 </main>
             </div>
         </div>
