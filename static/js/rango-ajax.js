@@ -5,7 +5,7 @@ $(document).ready(function() {
         catecategoryIdVar = $(this).attr('data-categoryid');
 
         $.get('/rango/like_category/',
-            {'category_id': catecategoryIdVar},
+            {'category_id': categoryIdVar},
             function(data) {
                 $('#like_count').html(data);
                 $('#like_btn').hide();

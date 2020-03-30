@@ -13,16 +13,6 @@ def main():
 
 # Add your Microsoft Account Key to a file called bing.key
 def read_bing_key():
-    """
-    reads the BING API key from a file called 'bing.key'
-    returns: a string which is either None, i.e. no key found, or with a key
-    remember to put bing.key in your .gitignore file to avoid committing it.
-
-    See Python Anti-Patterns - it is an awesome resource to improve your python code
-    Here we using "with" when opening documents
-    http://bit.ly/twd-antipattern-open-files
-    """
-
     bing_api_key = None
     try:
         with open('bing.key','r') as f:
@@ -40,10 +30,6 @@ def read_bing_key():
     return bing_api_key
 
 def run_query(search_terms):
-    """
-    See the Microsoft's documentation on other parameters that you can set.
-    http://bit.ly/twd-bing-api
-    """
     bing_key = read_bing_key()
     # search_url = 'https://rangobingsearchengine.cognitiveservices.azure.com/bing/v7.0'
     search_url = 'https://api.cognitive.microsoft.com/bing/v7.0/search'
@@ -59,10 +45,8 @@ def run_query(search_terms):
     # With the response now in play, build up a Python list.
     results = []
     for result in search_results['webPages']['value']:
-        results.append({
-            'title': result['name'],
-            'link': result['url'],
-            'summary': result['snippet']})
+        results.append({'title': result['name'], 'link': result['url'], 'summary': result['snippet']})
+
     return results
 
 if __name__ == '__main__':
