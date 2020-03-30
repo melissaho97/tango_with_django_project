@@ -17,7 +17,8 @@ $(document).ready(function() {
         var query;
         query = $(this).val();
         console.log(query);
-        $.get('/rango/suggest/', {'suggestion': query},
+        $.get('/rango/suggest/',
+            {'suggestion': query},
             function(data) {
                 $('#categories-listing').html(data);
             })
