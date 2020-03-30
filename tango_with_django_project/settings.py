@@ -20,6 +20,10 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')         # files that don’t change 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
+key = None
+with open('bing.key') as f:
+    key = f.read().strip()
+    SECRET_KEY = key
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '*$_uj2hx9+r4$*d4!^kgc8+!kr)b)e+3ezl2+q-6=+2(-myf^8'
