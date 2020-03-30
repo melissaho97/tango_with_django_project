@@ -5,7 +5,7 @@ $(document).ready(function() {
         catecategoryIdVar = $(this).attr('data-categoryid');
 
         $.get('/rango/like_category/',
-            {'category_id': categoryIdVar},
+            {'category_id': catecategoryIdVar},
             function(data) {
                 $('#like_count').html(data);
                 $('#like_btn').hide();
@@ -29,7 +29,7 @@ $(document).ready(function() {
         var title = $(this).attr('data-title');
         var url = $(this).attr('data-url');
         var clickedButton = $(this);
-        
+
         $.get('/rango/search_add_page/',
             {'category_id': categoryid, 'title': title, 'url': url},
             function(data) {
