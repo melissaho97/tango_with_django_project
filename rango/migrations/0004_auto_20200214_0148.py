@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='category',
             name='slug',
-            field=models.SlugField(default=uuid.uuid4),
+            field=models.SlugField(),
             preserve_default=True,
         ),
         migrations.RunPython(gen_slug),
@@ -25,6 +25,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='category',
             name='slug',
-            field=models.SlugField(default=uuid.uuid4, unique=True),
+            field=models.SlugField(unique=True),
         ),
     ]
